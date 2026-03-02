@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杨茜茜 - AI产品运营 | 简历</title>
+<style>
+/* ==================== 全局样式 ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+body {
+  background: #0a0a12;
+  color: #f5f5f5;
+}
+
+/* 黑红绚烂背景 + 烟花渐变 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(220, 38, 38, 0.25) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.2) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(251, 146, 60, 0.15) 0%, transparent 50%),
+    linear-gradient(135deg, rgba(30, 30, 45, 1) 0%, rgba(20, 10, 30, 1) 50%, rgba(30, 30, 45, 1) 100%);
+  pointer-events: none;
+  z-index: 0;
+  animation: gradientShift 15s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    filter: hue-rotate(0deg) saturate(1);
+  }
+  50% {
+    filter: hue-rotate(10deg) saturate(1.1);
+  }
+}
+
+/* 烟花粒子效果 - 密集持续版 */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20% 30%, #ff6b6b, rgba(255, 107, 107, 0)),
+    radial-gradient(2px 2px at 60% 70%, #ffa500, rgba(255, 165, 0, 0)),
+    radial-gradient(1.5px 1.5px at 50% 50%, #ff1744, rgba(255, 23, 68, 0)),
+    radial-gradient(1px 1px at 80% 10%, #ffd700, rgba(255, 215, 0, 0)),
+    radial-gradient(1.5px 1.5px at 30% 60%, #ffb366, rgba(255, 179, 102, 0)),
+    radial-gradient(1px 1px at 70% 20%, #ff4444, rgba(255, 68, 68, 0)),
+    radial-gradient(2px 2px at 40% 80%, #ffaa00, rgba(255, 170, 0, 0)),
+    radial-gradient(1.5px 1.5px at 90% 50%, #ff99cc, rgba(255, 153, 204, 0));
+  background-repeat: repeat;
+  background-size: 120px 130px, 180px 200px, 140px 160px, 220px 240px, 160px 180px, 150px 160px, 200px 180px, 170px 190px;
+  pointer-events: none;
+  z-index: 0;
+  animation: fireworks 4s linear infinite;
+  opacity: 0.65;
+}
+
+@keyframes fireworks {
+  0% {
+    background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0;
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    background-position: 120px 130px, 180px 200px, 140px 160px, 220px 240px, 160px 180px, 150px 160px, 200px 180px, 170px 190px;
+    opacity: 0.65;
+  }
+}
+
+/* ==================== 导航栏固定 ==================== */
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  background: rgba(15, 15, 25, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(220, 38, 38, 0.3);
+  z-index: 100;
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.1);
+}
+
+.nav-item {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #b0b0c0;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 4px 8px 4px 8px;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  user-select: none;
+}
+
+.nav-item:hover {
+  color: #ff6b6b;
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+.nav-item.active {
+  color: #ff6b6b;
+  border-bottom-color: #ff6b6b;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.4);
+}
+
+/* ==================== 幻灯片容器 ==================== */
+.slides-container {
+  display: flex;
+  width: 400vw; /* 4 slides */
+  height: 100vh;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 60px;
+  position: relative;
+  overflow-y: auto;
+}
+
+.slide::-webkit-scrollbar {
+  display: none;
+}
+
+.slide-content {
+  width: 100%;
+  max-width: 1200px;
+  padding: 3rem;
+  animation: slideInUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== 第1页：封面页 ==================== */
+.cover-page {
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 0;
+}
+
+.cover-header {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem;
+}
+
+.left-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.name-section h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 50%, #ffd700 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.2rem;
+  letter-spacing: -1px;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.3));
+}
+
+.name-section .en-name {
+  font-size: 1rem;
+  color: #9090a0;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.8rem;
+}
+
+.name-section .role {
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff1744 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 0.8rem;
+}
+
+.name-section .intro {
+  font-size: 0.95rem;
+  color: #c0c0d0;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* 教育背景 */
+.education-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.edu-item {
+  background: rgba(30, 30, 50, 0.6);
+  border: 1.5px solid;
+  border-image: linear-gradient(135deg, rgba(220, 38, 38, 0.6) 0%, rgba(168, 85, 247, 0.4) 100%) 1;
+  border-radius: 10px;
+  padding: 0.9rem 1.2rem;
+  font-size: 0.9rem;
+  color: #d0d0e0;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.edu-item:hover {
+  background: rgba(50, 20, 40, 0.7);
+  border-color: #ff6b6b;
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.3);
+}
+
+.edu-item strong {
+  color: #ff9999;
+  font-weight: 600;
+}
+
+.edu-item span {
+  display: block;
+  font-size: 0.85rem;
+  color: #a0a0b0;
+  margin-top: 0.3rem;
+}
+
+/* 联系方式 */
+.contact-box {
+  background: rgba(30, 30, 50, 0.6);
+  border: 1.5px solid rgba(220, 38, 38, 0.5);
+  border-radius: 10px;
+  padding: 1.2rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.1);
+}
+
+.contact-box h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ff9999;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-item {
+  font-size: 0.9rem;
+  color: #d0d0e0;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contact-item a {
+  color: #ff9999;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.contact-item a:hover {
+  color: #ffcccc;
+  text-decoration: underline;
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+/* 右侧区域 */
+.right-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+}
+
+/* 照片堆叠效果 */
+.photos-stack {
+  position: relative;
+  height: 380px;
+  perspective: 1200px;
+}
+
+.photo-item {
+  position: absolute;
+  width: 280px;
+  height: 320px;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.8) 0%, rgba(168, 85, 247, 0.7) 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.3), inset 0 0 30px rgba(255, 107, 107, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid rgba(255, 107, 107, 0.5);
+}
+
+.photo-item:nth-child(1) {
+  transform: translateX(0) rotateZ(-8deg) rotateY(15deg);
+  z-index: 3;
+}
+
+.photo-item:nth-child(2) {
+  transform: translateX(60px) translateY(30px) rotateZ(0deg) rotateY(-5deg);
+  z-index: 2;
+  opacity: 0.85;
+}
+
+.photo-item:nth-child(3) {
+  transform: translateX(120px) translateY(60px) rotateZ(8deg) rotateY(-15deg);
+  z-index: 1;
+  opacity: 0.7;
+}
+
+.photo-item:hover {
+  transform: translateY(-10px) rotateZ(0deg) !important;
+  z-index: 10 !important;
+  opacity: 1 !important;
+  box-shadow: 0 16px 48px rgba(220, 38, 38, 0.4), 0 0 30px rgba(255, 107, 107, 0.5);
+}
+
+/* 快速导航按钮 */
+.quick-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.nav-btn {
+  background: rgba(30, 30, 50, 0.5);
+  border: 1.5px solid;
+  border-image: linear-gradient(135deg, rgba(220, 38, 38, 0.5) 0%, rgba(255, 165, 0, 0.3) 100%) 1;
+  border-radius: 12px;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+  user-select: none;
+}
+
+.nav-btn:hover {
+  background: rgba(50, 20, 40, 0.7);
+  border-color: #ff6b6b;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.3), 0 0 15px rgba(255, 107, 107, 0.3);
+}
+
+.nav-btn .icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.nav-btn .label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ff9999;
+}
+
+.nav-btn .desc {
+  font-size: 0.8rem;
+  color: #a0a0b0;
+  margin-top: 0.3rem;
+}
+
+/* ==================== Section 标题 ==================== */
+.section-title {
+  font-size: 2rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.2));
+}
+
+/* ==================== 第2页：实习经历 ==================== */
+.experience-page .slide-content {
+  padding: 2rem 3rem;
+}
+
+.experience-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.experience-card {
+  background: rgba(30, 30, 50, 0.6);
+  border: 1.5px solid rgba(220, 38, 38, 0.4);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.experience-card:hover {
+  background: rgba(50, 20, 40, 0.8);
+  border-color: #ff6b6b;
+  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4), 0 0 20px rgba(255, 107, 107, 0.3);
+  transform: translateY(-5px);
+}
+
+.exp-logo {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.3) 0%, rgba(255, 165, 0, 0.2) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  transition: all 0.3s;
+}
+
+.experience-card:hover .exp-logo {
+  transform: scale(1.1) rotateZ(5deg);
+}
+
+.exp-company {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #ff9999;
+  margin-bottom: 0.4rem;
+  text-align: center;
+}
+
+.exp-position {
+  font-size: 1.1rem;
+  color: #ffa500;
+  margin-bottom: 0.3rem;
+  text-align: center;
+}
+
+.exp-time {
+  font-size: 0.95rem;
+  color: #a0a0b0;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.exp-description {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 10, 30, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  pointer-events: none;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.experience-card:hover .exp-description {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.exp-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+  color: #d0d0e0;
+  line-height: 1.5;
+}
+
+.exp-bullets li {
+  margin-bottom: 0.8rem;
+  padding-left: 1.2rem;
+  position: relative;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.exp-bullets li::before {
+  content: "▪";
+  position: absolute;
+  left: 0;
+  color: #ff6b6b;
+}
+
+/* ==================== 第3页：项目经历 ==================== */
+.projects-page .slide-content {
+  padding: 2rem 3rem;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.project-card {
+  background: rgba(30, 30, 50, 0.6);
+  border: 1.5px solid rgba(220, 38, 38, 0.4);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+}
+
+/* 各阶段组件默认隐藏 */
+.project-step {
+  transition: opacity 0.4s, transform 0.4s;
+  display: none;
+}
+.project-step.active {
+  display: block;
+  animation: stepFadeIn 0.6s ease-in-out;
+}
+
+@keyframes stepFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.project-step.project-details-step {
+  margin-top: 1.2rem;
+}
+/* 确保动画阶段在details-active 时仍然隐藏 */
+.project-card.details-active .project-anim-step {
+  display: none !important;
+}
+
+/* 当进入详情阶段时将 logo 向上移动 */
+.project-card.details-active .project-logo-step {
+  transform: translateY(-25px);
+}
+
+/* 详情内容始终可见，只在active时显示 */
+.project-card .project-details-step {
+  opacity: 0;
+  display: none;
+}
+.project-card.details-active .project-details-step {
+  display: block;
+  opacity: 1;
+}
+
+.project-card:hover {
+  background: rgba(50, 20, 40, 0.8);
+  border-color: #ff6b6b;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4), 0 0 20px rgba(255, 107, 107, 0.3);
+}
+
+.project-preview {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 10, 30, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.project-card.showing-details .project-preview {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+.project-card:hover .project-preview {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+.preview-content {
+  text-align: center;
+  animation: previewShow 3s ease-in-out infinite;
+}
+
+@keyframes previewShow {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.project-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.8) 0%, rgba(255, 165, 0, 0.7) 100%);
+  border-radius: 8px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.4);
+}
+
+.project-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ff9999;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.project-role {
+  font-size: 0.85rem;
+  color: #ffa500;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(220, 38, 38, 0.3);
+  text-align: center;
+}
+
+.project-details {
+  font-size: 0.95rem;
+  color: #d0d0e0;
+  line-height: 1.6;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  opacity: 0;
+  transition: all 0.4s;
+  position: absolute;
+}
+
+.project-card.showing-details .project-details {
+  opacity: 1;
+  position: relative;
+  transform: scale(1);
+}
+
+.project-card:hover .project-details {
+  opacity: 1;
+  position: relative;
+  transform: scale(1);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: auto;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background: rgba(220, 38, 38, 0.2);
+  color: #ffaa99;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid rgba(220, 38, 38, 0.4);
+}
+
+/* ==================== 第4页：技能与其他 ==================== */
+.skills-page .slide-content {
+  padding: 2rem 3rem;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.skill-group {
+  background: rgba(30, 30, 50, 0.6);
+  border: 1.5px solid rgba(220, 38, 38, 0.4);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.skill-group h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ff9999;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.skill-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.8) 0%, rgba(255, 165, 0, 0.7) 100%);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+  box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+}
+
+.skill-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.skill-list li {
+  font-size: 0.95rem;
+  color: #d0d0e0;
+  line-height: 1.5;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.skill-list li::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.contact-section {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.15) 0%, rgba(255, 165, 0, 0.1) 100%);
+  border: 1.5px solid rgba(220, 38, 38, 0.4);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(220, 38, 38, 0.1);
+}
+
+.contact-section h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ff9999;
+  margin-bottom: 1rem;
+}
+
+.contact-info {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contact-item {
+  font-size: 0.95rem;
+  color: #d0d0e0;
+}
+
+.contact-item a {
+  color: #ff9999;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.contact-item a:hover {
+  color: #ffcccc;
+  text-decoration: underline;
+  text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+/* ==================== 左右导航按钮 ==================== */
+.nav-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(220, 38, 38, 0.3);
+  border: 2px solid rgba(255, 107, 107, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 99;
+  font-size: 1.5rem;
+  color: #ff9999;
+  user-select: none;
+}
+
+.nav-arrow:hover {
+  background: rgba(220, 38, 38, 0.6);
+  border-color: #ff6b6b;
+  box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.nav-arrow.left {
+  left: 20px;
+}
+
+.nav-arrow.right {
+  right: 20px;
+}
+
+.nav-arrow.disabled {
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+.nav-arrow.disabled:hover {
+  background: rgba(220, 38, 38, 0.2);
+  border-color: rgba(255, 107, 107, 0.3);
+  box-shadow: none;
+  transform: translateY(-50%);
+}
+@media (max-width: 768px) {
+  .cover-header {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .name-section h1 {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-list {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .slide-content {
+    padding: 1.5rem;
+  }
+
+  .top-nav {
+    gap: 1rem;
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0.8rem;
+  }
+
+  .nav-item {
+    font-size: 0.85rem;
+  }
+
+  .photos-stack {
+    height: 280px;
+  }
+
+  .photo-item {
+    width: 200px;
+    height: 240px;
+    font-size: 72px;
+  }
+
+  .quick-nav {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== 顶部导航 ==================== -->
+<nav class="top-nav">
+  <a class="nav-item active" data-index="0">About Me</a>
+  <a class="nav-item" data-index="1">Experience</a>
+  <a class="nav-item" data-index="2">Projects</a>
+  <a class="nav-item" data-index="3">Skills</a>
+</nav>
+
+<!-- ==================== 左右导航箭头 ==================== -->
+<div class="nav-arrow left" id="nav-prev">←</div>
+<div class="nav-arrow right" id="nav-next">→</div>
+
+<!-- ==================== 幻灯片容器 ==================== -->
+<div class="slides-container">
+
+  <!-- 第 1 页：封面页 -->
+  <section class="slide cover-page">
+    <div class="cover-header">
+      <!-- 左侧：个人信息 -->
+      <div class="left-section">
+        <div class="name-section">
+          <h1>杨茜茜</h1>
+          <p class="en-name">Xixi Yang (Vanessa)</p>
+          <p class="role">AI 产品运营 / 体验设计</p>
+          <p class="intro">致力于洞察用户真实需求，提出有效解决方案，打造具有创意而强大的产品体验</p>
+        </div>
+
+        <!-- 教育背景 -->
+        <div class="education-list">
+          <div class="edu-item">
+            <strong>🎓 香港中文大学（深圳）</strong>
+            <span>社会计算科学 · 硕士 · 2025.09 – 2027.06</span>
+          </div>
+          <div class="edu-item">
+            <strong>🎓 首都师范大学</strong>
+            <span>应用心理学 · 硕士（保研）· 2023.09 – 2024.09</span>
+          </div>
+          <div class="edu-item">
+            <strong>🎓 广州中医药大学</strong>
+            <span>应用心理学 · 本科 · 2019.09 – 2023.06</span>
+          </div>
+        </div>
+
+        <!-- 联系方式 -->
+        <div class="contact-box">
+          <h4>Contact</h4>
+          <div class="contact-item">📧 <a href="mailto:missyangcool@163.com">missyangcool@163.com</a></div>
+          <div class="contact-item">📱 +86 131-4495-4939</div>
+        </div>
+      </div>
+
+      <!-- 右侧：照片和导航 -->
+      <div class="right-section">
+        <!-- 照片堆叠 -->
+        <div class="photos-stack">
+          <div class="photo-item"><img src="images/photo1.jpg" alt="photo1" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;"></div>
+          <div class="photo-item"><img src="images/photo2.jpg" alt="photo2" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;"></div>
+          <div class="photo-item"><img src="images/photo3.jpg" alt="photo3" style="width: 100%; height: 100%; object-fit: cover; border-radius: 16px;"></div>
+        </div>
+
+        <!-- 快速导航 -->
+        <div class="quick-nav">
+          <div class="nav-btn" data-slide="1">
+            <span class="icon">💼</span>
+            <span class="label">Experience</span>
+            <span class="desc">4 internships</span>
+          </div>
+          <div class="nav-btn" data-slide="2">
+            <span class="icon">🚀</span>
+            <span class="label">Projects</span>
+            <span class="desc">2 projects</span>
+          </div>
+          <div class="nav-btn" data-slide="3">
+            <span class="icon">🎯</span>
+            <span class="label">Skills</span>
+            <span class="desc">Full stack</span>
+          </div>
+          <div class="nav-btn" id="connect-btn">
+            <span class="icon">✨</span>
+            <span class="label">Let's Connect</span>
+            <span class="desc">Get in touch</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 第 2 页：实习经历 -->
+  <section class="slide experience-page">
+    <div class="slide-content">
+      <h2 class="section-title">Experience</h2>
+      <div class="experience-list">
+        
+        <div class="experience-card">
+          <div class="exp-logo"><img src="images/insta_logo.jpg" alt="影石" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
+          <div class="exp-company">Insta360影石科技股份有限公司</div>
+          <div class="exp-position">用户研究实习生</div>
+          <div class="exp-time">2025.06 – 2026.01</div>
+          <div class="exp-description">
+            <ul class="exp-bullets">
+              <li><strong>需求洞察与功能落地：</strong>为 Ace Pro 2 运动相机内置滤镜升级，基于社媒舆情和影像热点趋势，分析 40+热门滤镜，精选 3 款高潜滤镜并推进研发流程，优化用户体验与活跃粘性，2 款滤镜上市后好评率为 100%</li>
+              <li><strong>卖点分析与品牌宣发：</strong>为支持营销部门对 Ace pro 2 运动相机影像拍摄宣发，对 5 大手机品牌商影像宣发进行结构化拆解（定位、场景、用户痛点、心智占位），提炼可复用影像推广方法，支持营销端制定宣发策略</li>
+              <li><strong>用户调研与策略支持：</strong>为帮助市场及 UGC 团队在 Q4 季度进行第一视角专项推广，针对大疆 action 系列的挂脖配件进行用户触点研究。与运营部协作明确用户招募条件，独立设计访谈大纲并执行 12 场深度访谈。基于用户触点拆解出转化路径、3 类机会场景和 5 类关键决策点。输出覆盖场景切片、用户需求及产品机会点的策略报告，支持市场与 UGC 团队实现约 1000 万宣传曝光</li>
+            </ul>
+          </div>
+        </div>
+        <div class="experience-card">
+          <div class="exp-logo"><img src="images/hucchi.jpg" alt="呼哧" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
+          <div class="exp-company">深圳呼哧科技公司</div>
+          <div class="exp-position">市场实习生</div>
+          <div class="exp-time">2025.04 – 2025.07</div>
+          <div class="exp-description">
+            <ul class="exp-bullets">
+              <li><strong>北美市场洞察：</strong>为探索北美体感游戏市场，系统研究 Nintendo、Xbox、Meta Quest 等体感设备，按定位、价格、技术、场景形成对比矩阵，提炼竞品特点和海外客户使用偏好，为产品发展方向提供决策依据。</li>
+              <li><strong>方案设计与用户调研：</strong>围绕体感游戏的购机决策与使用场景，主导设计定量问卷与深度访谈大纲，并上线 Prolific 渠道触达 480 位北美用户，通过邮件独立邀约并完成 13 场北美用户访谈。</li>
+              <li><strong>需求洞察与产品优化：</strong>使用 SPSS 交叉分析调研数据，沉淀 3 类用户画像，识别潜在用户的 4 类关键转化触点与 8 类核心偏好，明确功能优先级，优化游戏选款逻辑，使前期游戏筛选效率提升 30%；推动产品交互场景从单人扩充至多人，实现设备使用场景拓展 100%；协同硬件团队优化交互方案，延迟测试结果下降约 50%。</li>
+            </ul>
+          </div>
+        </div>
+
+
+        <div class="experience-card">
+          <div class="exp-logo"><img src="images/meitu_logo.jpg" alt="美图" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
+          <div class="exp-company">北京美图科技之家有限公司</div>
+          <div class="exp-position">用户研究实习生</div>
+          <div class="exp-time">2024.06 – 2024.09</div>
+          <div class="exp-description">
+            <ul class="exp-bullets">
+              <li><strong>产品定位：</strong>为精准定位 WHEE（AI 生图产品）的用户人群，执行 20 人小组座谈，拆解工作流、使用场景、需求偏好，分析用户优先级和价值潜力，协助筛选出 3 类核心可转化人群，支持产品市场定位，助力 DAU 同比提升 800%。</li>
+              <li><strong>AI 功能优化：</strong>因智能手机影像能力提升而美图秀秀下载量减少，开展 10+用户访谈，拆解用户拍摄后“修图”路径，识别出用户对“AI 一键消除”的爽点和痛点，推动本品“AI 消除”功能优化，提升用户体验和竞争力</li>
+              <li><strong>AI 功能挖掘：</strong>为精准定位美图设计室 AI PPT 的产品功能，参与执行 1v1 深度用户访谈，拆解客户在“制作内容–美化设计 –交付表达”过程中的痛点与付费意愿，支持产品功能设计。功能上线后，美图设计室用户使用率提升 5 倍。</li>
+              <li><strong>海外市场洞察：</strong>为拓展美图秀秀东亚及东南亚市场，使用 SPSS 交叉分析 700 份数据，拆解用户影像功能的核心诉求（美颜期望、修图链路、文化偏好），独立产出日、韩、泰、印尼和越南 5 国的市场洞察，支持人像功能优化与出海策略制定。</li>
+            </ul>
+          </div>
+        </div>
+
+
+        <div class="experience-card">
+          <div class="exp-logo"><img src="images/skt_logo.jpg" alt="SKT" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
+          <div class="exp-company">深圳市思珂特教育科技有限公司</div>
+          <div class="exp-position">产品运营实习生</div>
+          <div class="exp-time">2023.04 – 2023.10</div>
+          <div class="exp-description">
+            <ul class="exp-bullets">
+              <li><strong>B 端客户调研：</strong>独立与 3 家 HOSA 合作机构开展定向访谈，系统梳理客户使用及内部推广的痛点，推动学习内容和系统流程针对性优化，为 B 端合作稳定提供保障。</li>
+              <li><strong>用户触达优化：</strong>独立对 70 名初赛流失用户调研，识别用户因信息触达不及时导致流失问题，推动团队将单一邮件通知转变为“邮件+短信”的双触点服务,优化用户触达率。</li>
+              <li><strong>项目管理：</strong>独立设计并执行评委问卷调研和决赛评审路线，评委满意度达 99%，提升评委体验，顺利交付大赛活动。</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 第 3 页：项目经历 -->
+  <section class="slide projects-page">
+    <div class="slide-content">
+      <h2 class="section-title">Projects</h2>
+      <div class="projects-grid">
+
+
+        <!-- 数据分析项目 -->
+        <div class="project-card" data-project="data">
+          <div class="project-step project-logo-step">
+            <div class="project-icon">📊</div>
+            <h3>市场营销活动分析与优化策略项目</h3>
+          </div>
+          <div class="project-step project-anim-step active">
+            <div class="preview-content" style="font-family: monospace; font-size: 0.9rem; color: #00ff00; white-space: pre-line; text-align: left; line-height: 1.5;">
+>>> import pandas as pd
+>>> df = pd.read_csv('data.csv')
+>>> result = df.groupby('category').agg()
+>>> print(f"处理 {len(df)} 条数据")
+处理 50000 条数据
+>>> for i in range(5): print('计算中...')
+计算中...
+计算中...
+计算中...
+计算中...
+计算中...
+>>> visualization complete ✓
+            </div>
+          </div>
+          <div class="project-step project-details-step">
+            <p class="project-role">负责人 · 2026.02</p>
+            <div class="project-details">
+              <strong>业务诊断：</strong>围绕营销投放效率问题，基于 20 万条模拟营销数据构建转化漏斗模型，识别点击后转化阶段为主要效率瓶颈，为优化方向提供数据依据。<br><br>
+              <strong>效率拆解：</strong>从活动类型、渠道、消费者人群等多维度拆解 ROI 与 CPA 结构，发现 ROI 整体稳定而 CPA 存在明显分层现象，明确“成本结构”是效率差异的核心驱动因素。<br><br>
+              <strong>策略设计：</strong>提出“人群驱动的组合投放模型”，建立跨人群效率基准渠道（Search / Website），并针对内容型渠道制定选择性强化策略，优化资源配置逻辑。<br><br>
+              <strong>项目管理：</strong>独立完成数据清洗、使用 python 分析建模、可视化呈现与策略输出，形成完整营销决策报告，支持从数据洞察到策略落地的闭环分析流程。<br><br>
+            </div>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">Pandas</span>
+              <span class="tag">Numpy</span>
+              <span class="tag">数据可视化</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI会议助手项目 -->
+        <div class="project-card" data-project="ai">
+          <div class="project-step project-logo-step">
+            <div class="project-icon">🗓️</div>
+            <h3>AI 会议助手</h3>
+          </div>
+          <div class="project-step project-anim-step active">
+            <div class="preview-content" style="font-family: 'Segoe UI'; font-size: 1rem; color: #d0d0e0; white-space: pre-line; text-align: left; line-height: 1.5;">
+📅 用户：预定下周3下午2点开会
+🤖 助手：收到请求，正在检查日历...
+✓ 日历无冲突，已发送邀请给 5 人
+✓ 预定会议室 & 生成议程
+📧 已发送会议确认
+            </div>
+          </div>
+          <div class="project-step project-details-step">
+            <p class="project-role">负责人 · 2025.12</p>
+            <div class="project-details">
+              <strong>背景：</strong>基于飞书Coze平台设计对话式AI Agent，实现会议预定与取消自动化，优化“沟通确认–日程调整”工作流程。<br><br>
+              <strong>行动：</strong>拆解会议管理场景中的意图识别与时间解析逻辑，设计Prompt策略与异常处理规则，提升Agent执行准确性与稳定性。<br><br>
+            </div>
+            <div class="project-tags">
+              <span class="tag">GPT</span>
+              <span class="tag">COZE</span>
+              <span class="tag">自然语言处理</span>
+              <span class="tag">Prompt engineering</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 第 4 页：技能与联系 -->
+  <section class="slide skills-page">
+    <div class="slide-content">
+      <h2 class="section-title">Skills & Contact</h2>
+      <div class="skills-grid">
+
+        <div class="skill-group">
+          <h3><span class="skill-icon">🌐</span>语言能力</h3>
+          <ul class="skill-list">
+            <li>普通话（母语）</li>
+            <li>英语（流利 ）</li>
+            <li>日语（基础）</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <h3><span class="skill-icon">📊</span>数据分析</h3>
+          <ul class="skill-list">
+            <li>Python · Pandas · NumPy</li>
+            <li>R · ggplot2 · 统计建模</li>
+            <li>SPSS · 假设检验 · 回归分析</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <h3><span class="skill-icon">�</span>市场洞察</h3>
+          <ul class="skill-list">
+            <li>竞品分析 · 用户研究</li>
+            <li>市场拆解 · 趋势洞察</li>
+            <li>用户画像分析 · 转化路径优化</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <h3><span class="skill-icon">🤳</span>AI 工具</h3>
+          <ul class="skill-list">
+            <li>ChatGPT · Claude</li>
+            <li>Gemini · Copilot</li>
+            <li>Doubao · 创意生成</li>
+          </ul>
+        </div>
+
+        <div class="contact-section">
+          <h3>🚀 Let's Connect</h3>
+          <p>
+          Exploring how AI augments human creativity and decision-making.
+          Excited to collaborate with curious minds and build things that actually matter.
+          Let’s create something interesting together.
+          </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ==================== 核心交互脚本 ==================== -->
+<script>
+(() => {
+  const container = document.querySelector('.slides-container');
+  const slides = document.querySelectorAll('.slide');
+  const navItems = document.querySelectorAll('.nav-item');
+  
+  let current = 0;
+  let isAnimating = false;
+  const ANIMATION_DURATION = 800;
+  const BOUNCE_DELAY = 100;
+
+  // 切换到指定索引
+  const goToSlide = (index) => {
+    if (index < 0 || index >= slides.length || isAnimating) return;
+    
+    isAnimating = true;
+    current = index;
+    
+    // 更新容器位置
+    container.style.transform = `translateX(-${current * 100}vw)`;
+    
+    // 更新导航激活状态
+    navItems.forEach((item, idx) => {
+      item.classList.toggle('active', idx === current);
+    });
+    
+    // 重置动画状态
+    setTimeout(() => { isAnimating = false; }, ANIMATION_DURATION);
+    
+    // 更新左右导航按钮状态
+    updateNavArrows();
+  };
+
+  // 更新导航按钮的启用/禁用状态
+  const updateNavArrows = () => {
+    const prevBtn = document.getElementById('nav-prev');
+    const nextBtn = document.getElementById('nav-next');
+    
+    if (prevBtn) {
+      prevBtn.classList.toggle('disabled', current === 0);
+    }
+    if (nextBtn) {
+      nextBtn.classList.toggle('disabled', current === slides.length - 1);
+    }
+  };
+
+  // 滚轮事件处理（转译为横向导航）
+  let wheelTimeout;
+  window.addEventListener('wheel', (e) => {
+    if (wheelTimeout || isAnimating) return;
+    
+    e.preventDefault();
+    
+    if (e.deltaY > 0) {
+      goToSlide(current + 1); // 下滚 → 右移
+    } else if (e.deltaY < 0) {
+      goToSlide(current - 1); // 上滚 → 左移
+    }
+    
+    wheelTimeout = setTimeout(() => { wheelTimeout = null; }, BOUNCE_DELAY);
+  }, { passive: false });
+
+  // 键盘方向键
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') {
+      goToSlide(current + 1);
+    } else if (e.key === 'ArrowLeft') {
+      goToSlide(current - 1);
+    }
+  });
+
+  // 触屏滑动
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const TOUCH_THRESHOLD = 50;
+
+  window.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  window.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > TOUCH_THRESHOLD) {
+      if (diff > 0) {
+        goToSlide(current + 1); // 左滑 → 右移
+      } else {
+        goToSlide(current - 1); // 右滑 → 左移
+      }
+    }
+  }, { passive: true });
+
+  // 导航点击
+  navItems.forEach((item) => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      const index = Number(item.getAttribute('data-index'));
+      goToSlide(index);
+    });
+  });
+
+  // 快速导航按钮点击
+  const quickNavBtns = document.querySelectorAll('.nav-btn[data-slide]');
+  quickNavBtns.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      const slideIndex = Number(btn.getAttribute('data-slide'));
+      goToSlide(slideIndex);
+    });
+  });
+
+  // Connect 按钮
+  const connectBtn = document.getElementById('connect-btn');
+  if (connectBtn) {
+    connectBtn.addEventListener('click', () => {
+      alert('Exploring how AI augments human creativity and decision-making. Excited to collaborate with curious minds and build things that actually matter. Let’s create something interesting together. 🤝\n\n📧 missyangcool@163.com\💼 Let\'s connect on LinkedIn!');
+    });
+  }
+
+  // 左右导航箭头按钮
+  const prevBtn = document.getElementById('nav-prev');
+  const nextBtn = document.getElementById('nav-next');
+  
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      goToSlide(current - 1);
+    });
+  }
+  
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      goToSlide(current + 1);
+    });
+  }
+  
+  // 初始化导航按钮状态
+  updateNavArrows();
+
+  // 项目卡片多阶段动画逻辑
+  const projectCards = document.querySelectorAll('.project-card');
+
+  // 如果初始已经在项目页，马上播放动画
+  if (current === 2) {
+    projectCards.forEach((card) => playCardAnimation(card));
+  }
+
+  // 切换项目卡片到指定阶段
+  function showProjectStep(card, step) {
+    card.querySelectorAll('.project-step').forEach((el) => {
+      el.classList.remove('active');
+    });
+    const target = card.querySelector(`.project-${step}-step`);
+    if (target) target.classList.add('active');
+  }
+
+  // 重置所有项目卡片到初始动画阶段
+  function resetProjectCards() {
+    projectCards.forEach((card) => {
+      // 清除所有多余状态和定时器
+      card.classList.remove('details-active');
+      if (card._animTimer) {
+        clearTimeout(card._animTimer);
+        card._animTimer = null;
+      }
+      // 恢复为初始 anim-step 状态，让动画循环播放
+      showProjectStep(card, 'anim');
+    });
+  }
+
+  // 开始播放某个卡片的动画阶段
+  function playCardAnimation(card) {
+    // 确保显示 anim-step，让 CSS 动画持续循环
+    showProjectStep(card, 'anim');
+    card.classList.remove('details-active');
+  }
+
+  // 鼠标悬停时立即显示 logo + 详情，logo上移
+  projectCards.forEach((card) => {
+    card.addEventListener('mouseenter', () => {
+      if (card._animTimer) {
+        clearTimeout(card._animTimer);
+        card._animTimer = null;
+      }
+      showProjectStep(card, 'logo');
+      card.classList.add('details-active');
+    });
+    
+    // 鼠标离开时恢复到动画状态
+    card.addEventListener('mouseleave', () => {
+      if (current === 2) {
+        playCardAnimation(card);
+      }
+    });
+  });
+
+  // 每次进入项目页都重置动画流程
+  const originalGoToSlide = goToSlide;
+  Object.defineProperty(window, 'currentSlide', {
+    get() { return current; },
+    set(newVal) { current = newVal; }
+  });
+  const projectsPage = document.querySelector('.projects-page');
+  if (projectsPage) {
+    const originalGoToSlideFunc = goToSlide;
+    window.goToSlide = function(index) {
+      // 离开项目页时清除所有定时器
+      if (current === 2 && index !== 2) {
+        projectCards.forEach((card) => {
+          if (card._animTimer) {
+            clearTimeout(card._animTimer);
+            card._animTimer = null;
+          }
+        });
+      }
+
+      if (index === 2 && current !== 2) {
+        setTimeout(() => {
+          resetProjectCards();
+          // 自动播放每张卡片的动画
+          projectCards.forEach((card) => playCardAnimation(card));
+        }, 100);
+      }
+      originalGoToSlideFunc(index);
+    };
+  }
+
+  // 防止默认滚动条行为
+  document.addEventListener('touchmove', (e) => {
+    e.preventDefault();
+  }, { passive: false });
+})();
+</script>
+
+</body>
+</html>
