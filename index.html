@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
@@ -450,13 +450,6 @@ body::after {
   justify-content: center;
 }
 
-.experience-card:hover {
-  background: rgba(50, 20, 40, 0.8);
-  border-color: #ff6b6b;
-  box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4), 0 0 20px rgba(255, 107, 107, 0.3);
-  transform: translateY(-5px);
-}
-
 .exp-logo {
   width: 100px;
   height: 100px;
@@ -469,10 +462,7 @@ body::after {
   margin-bottom: 1.2rem;
   border: 1px solid rgba(255, 107, 107, 0.3);
   transition: all 0.3s;
-}
-
-.experience-card:hover .exp-logo {
-  transform: scale(1.1) rotateZ(5deg);
+  cursor: pointer;
 }
 
 .exp-company {
@@ -498,26 +488,7 @@ body::after {
 }
 
 .exp-description {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: absolute;
-  inset: 0;
-  background: rgba(20, 10, 30, 0.95);
-  border-radius: 16px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  pointer-events: none;
-  overflow-y: auto;
-  max-height: 100%;
-}
-
-.experience-card:hover .exp-description {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  display: none;
 }
 
 .exp-bullets {
@@ -542,6 +513,194 @@ body::after {
   position: absolute;
   left: 0;
   color: #ff6b6b;
+}
+
+/* ==================== 实习详情模态框样式 ==================== */
+.experience-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+}
+
+.experience-modal.active {
+  display: flex;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  position: relative;
+  background: rgba(20, 20, 35, 0.95);
+  border: 1.5px solid rgba(220, 38, 38, 0.5);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  width: 85vw;
+  max-width: 900px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  animation: modalSlideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 20px 60px rgba(220, 38, 38, 0.3), 0 0 40px rgba(255, 107, 107, 0.2);
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 107, 107, 0.2);
+  border: 1px solid rgba(255, 107, 107, 0.4);
+  color: #ff6b6b;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  z-index: 10;
+}
+
+.modal-close:hover {
+  background: rgba(255, 107, 107, 0.4);
+  transform: scale(1.1) rotate(90deg);
+}
+
+.modal-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 40px;
+}
+
+.modal-header {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 30px;
+  align-items: flex-start;
+}
+
+.modal-logo {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.3) 0%, rgba(255, 165, 0, 0.2) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(255, 107, 107, 0.3);
+  overflow: hidden;
+}
+
+.modal-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-title-section {
+  flex: 1;
+}
+
+.modal-title-section h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ff9999;
+  margin: 0 0 8px 0;
+  line-height: 1.2;
+}
+
+.modal-position {
+  font-size: 1.1rem;
+  color: #ffa500;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.modal-time {
+  font-size: 0.95rem;
+  color: #a0a0b0;
+  margin: 0;
+}
+
+.modal-description {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.modal-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.modal-bullets li {
+  font-size: 0.95rem;
+  color: #d0d0e0;
+  line-height: 1.6;
+  padding-left: 1.5rem;
+  position: relative;
+  text-align: left;
+}
+
+.modal-bullets li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: #ff6b6b;
+  font-weight: bold;
+}
+
+.modal-bullets strong {
+  color: #ffb3b3;
+}
+
+/* 模态框响应式 */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95vw;
+    height: 90vh;
+  }
+  
+  .modal-body {
+    padding: 25px;
+  }
+  
+  .modal-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .modal-logo {
+    width: 100px;
+    height: 100px;
+  }
 }
 
 /* ==================== 第3页：项目经历 ==================== */
@@ -953,6 +1112,45 @@ body::after {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ==================== Hobbies Section ==================== */
+.hobbies-section {
+  margin-top: 1rem;
+  padding-top: 0;
+  border-top: none;
+}
+
+
+/* ==================== Hobbies Section ==================== */
+.hobbies-section {
+  margin-top: 1rem;
+  padding-top: 0;
+  border-top: none;
+}
+
+.hobbies-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hobbies-list li {
+  font-size: 0.95rem;
+  color: #ffa500;
+  padding: 0;
+  position: relative;
+}
+
+.hobbies-list li::before {
+  content: "";
+  display: none;
+}
+
 </style>
 </head>
 <body>
@@ -982,6 +1180,13 @@ body::after {
           <p class="en-name">Xixi Yang (Vanessa)</p>
           <p class="role">AI 产品运营 / 体验设计</p>
           <p class="intro">致力于洞察用户真实需求，提出有效解决方案，打造具有创意而强大的产品体验</p>
+          <div class="hobbies-section">
+            <ul class="hobbies-list">
+              <li>💪 健身</li>
+              <li>⛰️ 徒步登山</li>
+              <li>📸 摄影</li>
+            </ul>
+          </div>
         </div>
 
         <!-- 教育背景 -->
@@ -1050,7 +1255,7 @@ body::after {
       <h2 class="section-title">Experience</h2>
       <div class="experience-list">
         
-        <div class="experience-card">
+        <div class="experience-card" data-exp-index="0" onclick="openExperienceModal(0)">
           <div class="exp-logo"><img src="images/insta_logo.jpg" alt="影石" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
           <div class="exp-company">Insta360影石科技股份有限公司</div>
           <div class="exp-position">用户研究实习生</div>
@@ -1063,7 +1268,7 @@ body::after {
             </ul>
           </div>
         </div>
-        <div class="experience-card">
+        <div class="experience-card" data-exp-index="1" onclick="openExperienceModal(1)">
           <div class="exp-logo"><img src="images/hucchi.jpg" alt="呼哧" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
           <div class="exp-company">深圳呼哧科技公司</div>
           <div class="exp-position">市场实习生</div>
@@ -1078,7 +1283,7 @@ body::after {
         </div>
 
 
-        <div class="experience-card">
+        <div class="experience-card" data-exp-index="2" onclick="openExperienceModal(2)">
           <div class="exp-logo"><img src="images/meitu_logo.jpg" alt="美图" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
           <div class="exp-company">北京美图科技之家有限公司</div>
           <div class="exp-position">用户研究实习生</div>
@@ -1094,7 +1299,7 @@ body::after {
         </div>
 
 
-        <div class="experience-card">
+        <div class="experience-card" data-exp-index="3" onclick="openExperienceModal(3)">
           <div class="exp-logo"><img src="images/skt_logo.jpg" alt="SKT" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"></div>
           <div class="exp-company">深圳市思珂特教育科技有限公司</div>
           <div class="exp-position">产品运营实习生</div>
@@ -1241,7 +1446,6 @@ body::after {
           Excited to collaborate with curious minds and build things that actually matter.
           Let’s create something interesting together.
           </p>
-          </div>
         </div>
 
       </div>
@@ -1250,8 +1454,122 @@ body::after {
 
 </div>
 
+<!-- ==================== 实习详情模态框 ==================== -->
+<div id="experienceModal" class="experience-modal">
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-body">
+      <div class="modal-header">
+        <div class="modal-logo" id="modalLogo"></div>
+        <div class="modal-title-section">
+          <h2 id="modalCompany"></h2>
+          <p id="modalPosition" class="modal-position"></p>
+          <p id="modalTime" class="modal-time"></p>
+        </div>
+      </div>
+      <div class="modal-description">
+        <ul id="modalBullets" class="modal-bullets"></ul>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ==================== 核心交互脚本 ==================== -->
 <script>
+
+// ==================== Experience Modal Handler ====================
+function openExperienceModal(index) {
+  const experiences = [
+    {
+      logo: 'images/insta_logo.jpg',
+      company: 'Insta360影石科技股份有限公司',
+      position: '用户研究实习生',
+      time: '2025.06 – 2026.01',
+      bullets: [
+        '<strong>需求洞察与功能落地：</strong>为 Ace Pro 2 运动相机内置滤镜升级，基于社媒舆情和影像热点趋势，分析 40+热门滤镜，精选 3 款高潜滤镜并推进研发流程，优化用户体验与活跃粘性，2 款滤镜上市后好评率为 100%',
+        '<strong>卖点分析与品牌宣发：</strong>为支持营销部门对 Ace pro 2 运动相机影像拍摄宣发，对 5 大手机品牌商影像宣发进行结构化拆解（定位、场景、用户痛点、心智占位），提炼可复用影像推广方法，支持营销端制定宣发策略',
+        '<strong>用户调研与策略支持：</strong>为帮助市场及 UGC 团队在 Q4 季度进行第一视角专项推广，针对大疆 action 系列的挂脖配件进行用户触点研究。与运营部协作明确用户招募条件，独立设计访谈大纲并执行 12 场深度访谈。基于用户触点拆解出转化路径、3 类机会场景和 5 类关键决策点。输出覆盖场景切片、用户需求及产品机会点的策略报告，支持市场与 UGC 团队实现约 1000 万宣传曝光'
+      ]
+    },
+    {
+      logo: 'images/hucchi.jpg',
+      company: '深圳呼哧科技公司',
+      position: '市场实习生',
+      time: '2025.04 – 2025.07',
+      bullets: [
+        '<strong>北美市场洞察：</strong>为探索北美体感游戏市场，系统研究 Nintendo、Xbox、Meta Quest 等体感设备，按定位、价格、技术、场景形成对比矩阵，提炼竞品特点和海外客户使用偏好，为产品发展方向提供决策依据。',
+        '<strong>方案设计与用户调研：</strong>围绕体感游戏的购机决策与使用场景，主导设计定量问卷与深度访谈大纲，并上线 Prolific 渠道触达 480 位北美用户，通过邮件独立邀约并完成 13 场北美用户访谈。',
+        '<strong>需求洞察与产品优化：</strong>使用 SPSS 交叉分析调研数据，沉淀 3 类用户画像，识别潜在用户的 4 类关键转化触点与 8 类核心偏好，明确功能优先级，优化游戏选款逻辑，使前期游戏筛选效率提升 30%；推动产品交互场景从单人扩充至多人，实现设备使用场景拓展 100%；协同硬件团队优化交互方案，延迟测试结果下降约 50%。'
+      ]
+    },
+    {
+      logo: 'images/meitu_logo.jpg',
+      company: '北京美图科技之家有限公司',
+      position: '用户研究实习生',
+      time: '2024.06 – 2024.09',
+      bullets: [
+        '<strong>产品定位：</strong>为精准定位 WHEE（AI 生图产品）的用户人群，执行 20 人小组座谈，拆解工作流、使用场景、需求偏好，分析用户优先级和价值潜力，协助筛选出 3 类核心可转化人群，支持产品市场定位，助力 DAU 同比提升 800%。',
+        '<strong>AI 功能优化：</strong>因智能手机影像能力提升而美图秀秀下载量减少，开展 10+用户访谈，拆解用户拍摄后"修图"路径，识别出用户对"AI 一键消除"的爽点和痛点，推动本品"AI 消除"功能优化，提升用户体验和竞争力',
+        '<strong>AI 功能挖掘：</strong>为精准定位美图设计室 AI PPT 的产品功能，参与执行 1v1 深度用户访谈，拆解客户在"制作内容–美化设计 –交付表达"过程中的痛点与付费意愿，支持产品功能设计。功能上线后，美图设计室用户使用率提升 5 倍。',
+        '<strong>海外市场洞察：</strong>为拓展美图秀秀东亚及东南亚市场，使用 SPSS 交叉分析 700 份数据，拆解用户影像功能的核心诉求（美颜期望、修图链路、文化偏好），独立产出日、韩、泰、印尼和越南 5 国的市场洞察，支持人像功能优化与出海策略制定。'
+      ]
+    },
+    {
+      logo: 'images/skt_logo.jpg',
+      company: '深圳市思珂特教育科技有限公司',
+      position: '产品运营实习生',
+      time: '2023.04 – 2023.10',
+      bullets: [
+        '<strong>B 端客户调研：</strong>独立与 3 家 HOSA 合作机构开展定向访谈，系统梳理客户使用及内部推广的痛点，推动学习内容和系统流程针对性优化，为 B 端合作稳定提供保障。',
+        '<strong>用户触达优化：</strong>独立对 70 名初赛流失用户调研，识别用户因信息触达不及时导致流失问题，推动团队将单一邮件通知转变为"邮件+短信"的双触点服务,优化用户触达率。',
+        '<strong>项目管理：</strong>独立设计并执行评委问卷调研和决赛评审路线，评委满意度达 99%，提升评委体验，顺利交付大赛活动。'
+      ]
+    }
+  ];
+  
+  if (index < 0 || index >= experiences.length) return;
+  
+  const exp = experiences[index];
+  const modal = document.getElementById('experienceModal');
+  
+  // Populate modal content
+  document.getElementById('modalLogo').innerHTML = `<img src="${exp.logo}" alt="${exp.company}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">`;
+  document.getElementById('modalCompany').textContent = exp.company;
+  document.getElementById('modalPosition').textContent = exp.position;
+  document.getElementById('modalTime').textContent = exp.time;
+  
+  const bulletsList = document.getElementById('modalBullets');
+  bulletsList.innerHTML = '';
+  exp.bullets.forEach(bullet => {
+    const li = document.createElement('li');
+    li.innerHTML = bullet;
+    bulletsList.appendChild(li);
+  });
+  
+  // Show modal
+  modal.classList.add('active');
+}
+
+function closeExperienceModal() {
+  const modal = document.getElementById('experienceModal');
+  modal.classList.remove('active');
+}
+
+// Close modal when clicking overlay
+document.addEventListener('DOMContentLoaded', function() {
+  const modal = document.getElementById('experienceModal');
+  const overlay = document.getElementById('modalOverlay');
+  const closeBtn = document.getElementById('modalClose');
+  
+  if (overlay) {
+    overlay.addEventListener('click', closeExperienceModal);
+  }
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeExperienceModal);
+  }
+});
+
 (() => {
   const container = document.querySelector('.slides-container');
   const slides = document.querySelectorAll('.slide');
@@ -1486,3 +1804,4 @@ body::after {
 
 </body>
 </html>
+
